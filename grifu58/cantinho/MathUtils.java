@@ -10,6 +10,8 @@ public class MathUtils {
 
 	public static final double PI_AS_DEGREES = 180;	
 	public static final double TWO_PI_AS_DEGREES = 360;
+	public static final double MAX_BULLET_SPEED = 20;
+	public static final double MAX_FIRE_POWER = 3;
 
 	public static double findAbsoluteBearing(final Position me, final Position enemy) {
 		final double deltaX = enemy.getX() - me.getX();
@@ -60,6 +62,17 @@ public class MathUtils {
 	public double normalizeRelativeAngleAsDegrees(final double bearing) {
 		double normalized = bearing;
 		return (normalized%= TWO_PI_AS_DEGREES) >= 0 ? (normalized < PI_AS_DEGREES) ? normalized : normalized - TWO_PI_AS_DEGREES : (normalized >= -PI_AS_DEGREES) ? normalized : normalized + TWO_PI_AS_DEGREES;
+	}
+	
+	public double calculateBulletSpeed(final double firePower) {
+		return MAX_BULLET_SPEED - firePower * MAX_FIRE_POWER;
+	}
+	
+	/**
+	 * distance = speed * time
+	 */
+	public long calculateTime(final double distance, final double speed) {
+		return (long) (distance / speed);
 	}
 
 }
