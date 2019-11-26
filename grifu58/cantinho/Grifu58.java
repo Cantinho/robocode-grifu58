@@ -58,7 +58,8 @@ public class Grifu58 extends AdvancedRobot
 	 */
 	public void onScannedRobot(final ScannedRobotEvent event) {
 		// Replace the next line with any behavior you would like
-		setFire(1);
+		updateEnemyData(event);
+		//setFire(1);
 	}
 
 	/**
@@ -77,14 +78,6 @@ public class Grifu58 extends AdvancedRobot
 		setBack(20);
 	}
 	
-	/**
-	 * 	private String id;
-	private double x;
-	private double y;
-	private double energy;
-	private double heading;
-	private double bearing;
-	 */
 	private void updateEnemyData(final ScannedRobotEvent event) {
 		enemyVehicle.setId(event.getName());
 		double absoluteBearingAsDegrees = me.getHeading() + event.getBearing();
@@ -96,6 +89,8 @@ public class Grifu58 extends AdvancedRobot
 		enemyVehicle.setEnergy(event.getEnergy());
 		enemyVehicle.setHeading(event.getHeading());
 		enemyVehicle.setBearing(event.getBearing());
+		enemyVehicle.setSpeed(event.getVelocity());
+		enemyVehicle.setDistance(event.getDistance());
 	}
 	
 	private double makeProjectOnX(final double absoluteBearingAsDegrees, final double hypotenuse) {
