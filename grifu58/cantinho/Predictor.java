@@ -1,9 +1,10 @@
 package cantinho;
 
 /**
- * MyClass - a class by (your name here)
+ * Predictor - a class represents a position predictor.
  */
 public class Predictor {
+
 	public static Position predictPosition(final long futureTimestamp, final Position current, final double heading, final double speed) {
 		// basic trigonometry
 		// Find hypotenuse = speed * time
@@ -19,4 +20,6 @@ public class Predictor {
 			current.getY() + y
 		);		
 	}
+	
+	
 }
