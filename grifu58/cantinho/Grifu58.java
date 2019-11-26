@@ -11,6 +11,7 @@ public class Grifu58 extends AdvancedRobot
 {
 	private static final double BOT_SIZE = 36;
 	private static final double SAFE_AREA = BOT_SIZE + 10;
+	private static final int GUN_TURN_REMAINING_ERROR = 7;
 	private Battlefield battlefield;
 	private Vehicle me;
 	private EnemyVehicle enemyVehicle;
@@ -74,6 +75,41 @@ public class Grifu58 extends AdvancedRobot
 	public void onHitWall() {
 		// Replace the next line with any behavior you would like
 		setBack(20);
-	}	
+	}
+	
+	/**
+	 * 	private String id;
+	private double x;
+	private double y;
+	private double energy;
+	private double heading;
+	private double bearing;
+	 */
+	private void updateEnemyData(final ScannedRobotEvent event) {
+		enemyVehicle.setId(event.getName());
+		double absoluteBearingAsDegrees = me.getHeading() + event.getBearing();
+		if(absoluteBearingAsDegrees < 0) {
+			absoluteBearingAsDegrees = absoluteBearingAsDegrees - MathUtils.TWO_PI_AS_DEGREES;
+		}
+		enemyVehicle.setX(me.getX() + makeProjectOnX(absoluteBearingAsDegrees, event.getDistance()));
+		enemyVehicle.setY(me.getY() + makeProjectOnY(absoluteBearingAsDegrees, event.getDistance()));
+		enemyVehicle.setEnergy(event.getEnergy());
+		enemyVehicle.setHeading(event.getHeading());
+		enemyVehicle.setBearing(event.getBearing());
+	}
+	
+	private double makeProjectOnX(final double absoluteBearingAsDegrees, final double hypotenuse) {
+		return Math.sin(Math.toRadians(absoluteBearingAsDegrees)) * hypotenuse;
+	}
+	
+	private double makeProjectOnY(final double absoluteBearingAsDegrees, final double hypotenuse) {
+		return Math.cos(Math.toRadians(absoluteBearingAsDegrees)) * hypotenuse;		
+	}
+	
+	private void safeFire(final double firePower) {
+		if(getGunHeat() == 0 && Math.abs(getGunTurnRemaining()) < GUN_TURN_REMAINING_ERROR) {
+			setFire(firePower);
+		}
+	}
+	
 }
-
