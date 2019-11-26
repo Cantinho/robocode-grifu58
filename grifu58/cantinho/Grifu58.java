@@ -55,9 +55,8 @@ public class Grifu58 extends AdvancedRobot
 	/**
 	 * onScannedRobot: What to do when you see another robot
 	 */
-	public void onScannedRobot() {
+	public void onScannedRobot(final ScannedRobotEvent event) {
 		// Replace the next line with any behavior you would like
-		
 		setFire(1);
 	}
 
@@ -77,3 +76,4 @@ public class Grifu58 extends AdvancedRobot
 		setBack(20);
 	}	
 }
+
