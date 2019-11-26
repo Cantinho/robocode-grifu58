@@ -8,8 +8,8 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
  */
 public class MathUtils {
 
-	private static final double PI_AS_DEGREES = 180;	
-	private static final double TWO_PI_AS_DEGREES = 360;
+	public static final double PI_AS_DEGREES = 180;	
+	public static final double TWO_PI_AS_DEGREES = 360;
 
 	public static double findAbsoluteBearing(final Position me, final Position enemy) {
 		final double deltaX = enemy.getX() - me.getX();
