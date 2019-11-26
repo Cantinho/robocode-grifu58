@@ -37,4 +37,5 @@ public class EnemyVehicle extends Vehicle {
 	public void setDistance(final double distance) {
 		this.distance = distance;
 	}
+	
 }
