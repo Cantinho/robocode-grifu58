@@ -14,6 +14,8 @@ public class Grifu58 extends AdvancedRobot
 	private Battlefield battlefield;
 	private Vehicle me;
 	private Vehicle enemy;
+	private EnemyBot enemyBot;
+
 
 	/**
 	 * run: Grifu58's default behavior
@@ -26,12 +28,14 @@ public class Grifu58 extends AdvancedRobot
 		// Robot main loop
 		while(true) {
 			// Replace the next 4 lines with any behavior you would like
-			setAhead(100);
-			setTurnGunRight(360);
-			execute();
-			setBack(100);
-			setTurnGunRight(360);
-			execute();
+			
+
+			//setAhead(100);
+			//setTurnGunRight(360);
+			//execute();
+			//setBack(100);
+			//setTurnGunRight(360);
+			//execute();
 		}
 	}
 	
@@ -46,6 +50,8 @@ public class Grifu58 extends AdvancedRobot
 		
 		// Set battlefield dimensions
 		battlefield = new Battlefield((int) SAFE_AREA, (int) SAFE_AREA, (int) (getBattleFieldWidth() - 2 * SAFE_AREA), (int) (getBattleFieldHeight() - 2 * SAFE_AREA));
+		me = new Vehicle(getX(), getY(), getEnergy(), getHeading(), 0);
+		enemyBot = new EnemyBot();
 	}
 
 	/**
@@ -72,4 +78,3 @@ public class Grifu58 extends AdvancedRobot
 		setBack(20);
 	}	
 }
-
