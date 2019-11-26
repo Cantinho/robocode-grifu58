@@ -13,9 +13,7 @@ public class Grifu58 extends AdvancedRobot
 	private static final double SAFE_AREA = BOT_SIZE + 10;
 	private Battlefield battlefield;
 	private Vehicle me;
-	private Vehicle enemy;
-	private EnemyBot enemyBot;
-
+	private EnemyVehicle enemyVehicle;
 
 	/**
 	 * run: Grifu58's default behavior
@@ -50,8 +48,8 @@ public class Grifu58 extends AdvancedRobot
 		
 		// Set battlefield dimensions
 		battlefield = new Battlefield((int) SAFE_AREA, (int) SAFE_AREA, (int) (getBattleFieldWidth() - 2 * SAFE_AREA), (int) (getBattleFieldHeight() - 2 * SAFE_AREA));
-		me = new Vehicle(getX(), getY(), getEnergy(), getHeading(), 0);
-		enemyBot = new EnemyBot();
+		me = new Vehicle("Grifu58", getX(), getY(), getEnergy(), getHeading(), 0);
+		enemyVehicle = null;
 	}
 
 	/**
@@ -59,6 +57,7 @@ public class Grifu58 extends AdvancedRobot
 	 */
 	public void onScannedRobot() {
 		// Replace the next line with any behavior you would like
+		
 		setFire(1);
 	}
 
