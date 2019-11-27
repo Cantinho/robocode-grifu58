@@ -12,6 +12,8 @@ public class Grifu58 extends AdvancedRobot
 	private static final double BOT_SIZE = 36;
 	private static final double SAFE_AREA = BOT_SIZE + 10;
 	private static final int GUN_TURN_REMAINING_ERROR = 7;
+	private static final int MAX_DISTANCE_TO_FIRE = 500;
+	private static final int MAX_FIRE_POWER = 3;
 	private Battlefield battlefield;
 	private Vehicle me;
 	private EnemyVehicle enemyVehicle;
@@ -51,6 +53,9 @@ public class Grifu58 extends AdvancedRobot
 		battlefield = new Battlefield((int) SAFE_AREA, (int) SAFE_AREA, (int) (getBattleFieldWidth() - 2 * SAFE_AREA), (int) (getBattleFieldHeight() - 2 * SAFE_AREA));
 		me = new Vehicle("Grifu58", getX(), getY(), getEnergy(), getHeading(), 0);
 		enemyVehicle = null;
+		
+		setAdjustGunForRobotTurn(true); // Keep the gun still when we turn
+		turnRadarRight(360);
 	}
 
 	/**
@@ -58,7 +63,21 @@ public class Grifu58 extends AdvancedRobot
 	 */
 	public void onScannedRobot(final ScannedRobotEvent event) {
 		// Replace the next line with any behavior you would like
+		if(enemyVehicle == null) {
+			enemyVehicle = new EnemyVehicle();
+		}
 		updateEnemyData(event);
+
+		final double firePower = MathUtils.simpleFirePower(MAX_DISTANCE_TO_FIRE, enemyVehicle.getDistance(), MAX_FIRE_POWER);
+		final double projectileSpeed = MathUtils.calculateBulletSpeed(firePower);
+		final long timeToReach = MathUtils.calculateTime(enemyVehicle.getDistance(), projectileSpeed);
+		final Position currentEnemyPosition = new Position(enemyVehicle.getX(), enemyVehicle.getY());
+		final double predictedAbsoluteBearing = Predictor.predictAbsoluteBearing(timeToReach, currentEnemyPosition, enemyVehicle.getHeading(), enemyVehicle.getSpeed());
+		setTurnGunRight(Predictor.predictNormalizedBearing(predictedAbsoluteBearing, getGunHeading()));
+		safeFire(firePower);
+		if(event.getDistance() > 50) {
+			
+		}
 		//setFire(1);
 	}
 

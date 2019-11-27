@@ -20,6 +20,8 @@ public class Vehicle {
 		this.bearing = bearing;
 	}
 	
+	public Vehicle() {}
+	
 	public String getId() {
 		return id;
 	}
