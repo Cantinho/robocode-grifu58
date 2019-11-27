@@ -21,5 +21,14 @@ public class Predictor {
 		);		
 	}
 	
+	public static double predictAbsoluteBearing(final long futureTimestamp, final Position current, final double heading, final double speed) {
+		final Position predictedPosition = predictPosition(futureTimestamp, current, heading, speed);
+		final double predictAbsoluteBearingInDegrees = findAbsoluteBearing(current, predictedPosition);
+		return predictAbsoluteBearingInDegrees;
+	}
+	
+	public static double predictNormalizedBearing(final double absoluteBearing, final double gunHeading) {
+		return normalizeBearing(absoluteBearing - gunHeading);
+	}
 	
 }

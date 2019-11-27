@@ -39,11 +39,11 @@ public class MathUtils {
 		return Math.hypot(deltaY, deltaX);
 	}
 	
-	public double simpleTurningRightAiming(final double myHeading, final double myGunHeading, final double enemyBearing) {
+	public static double simpleTurningRightAiming(final double myHeading, final double myGunHeading, final double enemyBearing) {
 		return myHeading - myGunHeading + enemyBearing;		
 	}
 	
-	public double normalizeBearing(final double bearing) {
+	public static double normalizeBearing(final double bearing) {
 		double normalizedAngle = bearing;
 		normalizedAngle = normalizeRelativeAngleAsDegrees(normalizedAngle);
 		while(normalizedAngle > PI_AS_DEGREES) normalizedAngle -= TWO_PI_AS_DEGREES;
@@ -51,27 +51,27 @@ public class MathUtils {
 		return normalizedAngle;
 	}
 	
-	public double optimizedTurningRightAiming(final double myHeading, final double myGunHeading, final double enemyBearing) {
+	public static double optimizedTurningRightAiming(final double myHeading, final double myGunHeading, final double enemyBearing) {
 		return normalizeBearing(simpleTurningRightAiming(myHeading, myGunHeading, enemyBearing));
 	}
 
-	public double simpleFirePower(final double maxDistance, final double enemyDistance, final double maxPower) {
+	public static double simpleFirePower(final double maxDistance, final double enemyDistance, final double maxPower) {
 		return Math.min(maxDistance / enemyDistance, maxPower);
 	}
 	
-	public double normalizeRelativeAngleAsDegrees(final double bearing) {
+	public static double normalizeRelativeAngleAsDegrees(final double bearing) {
 		double normalized = bearing;
 		return (normalized%= TWO_PI_AS_DEGREES) >= 0 ? (normalized < PI_AS_DEGREES) ? normalized : normalized - TWO_PI_AS_DEGREES : (normalized >= -PI_AS_DEGREES) ? normalized : normalized + TWO_PI_AS_DEGREES;
 	}
 	
-	public double calculateBulletSpeed(final double firePower) {
+	public static double calculateBulletSpeed(final double firePower) {
 		return MAX_BULLET_SPEED - firePower * MAX_FIRE_POWER;
 	}
 	
 	/**
 	 * distance = speed * time
 	 */
-	public long calculateTime(final double distance, final double speed) {
+	public static long calculateTime(final double distance, final double speed) {
 		return (long) (distance / speed);
 	}
 
