@@ -22,6 +22,10 @@ public class EnemyVehicle extends Vehicle {
 		this.distance = distance;
 	}
 	
+	public EnemyVehicle() {
+		super();
+	}
+	
 	public double getSpeed() {
 		return speed;
 	}
